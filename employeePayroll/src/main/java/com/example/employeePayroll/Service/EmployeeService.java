@@ -1,18 +1,20 @@
 package com.example.employeePayroll.Service;
-import com.example.employeePayroll.Controller.EmployeePayrollController;
+
+import com.example.employeePayroll.Controller.EmployeePayrollController ;
 import com.example.employeePayroll.DTO.EmployeeDTO;
 import com.example.employeePayroll.Entities.EmployeeEntity;
+import com.example.employeePayroll.Interfaces.IEmployeeService;
 import com.example.employeePayroll.Repositories.EmployeeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EmployeeService {
+public class EmployeeService implements IEmployeeService {
 
+    @Autowired
     EmployeeRepository employeeRepository;
 
-    public EmployeeService(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
+
 
     public EmployeeDTO get(Long id){
 
@@ -38,6 +40,7 @@ public class EmployeeService {
         return emp;
     }
 
+
     public EmployeeDTO edit(EmployeeDTO emp, Long id){
         //finding employee
         EmployeeEntity foundEmp = employeeRepository.findById(id).orElseThrow(()->new RuntimeException("No employee found for given id"));
@@ -57,6 +60,7 @@ public class EmployeeService {
         return employeeDTO;
 
     }
+
 
     public String delete(Long id){
 
